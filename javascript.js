@@ -48,6 +48,7 @@ function addrow(){
         var x = y.insertCell(i);
     }
 }
+
 function addcol(){
     var table = document.getElementById('myTable'),
         oRows = table.getElementsByTagName('tr'),
@@ -57,49 +58,65 @@ function addcol(){
         oRows[i].insertCell();
     }
 }
+
 function deleteRow(id){
-    var i = id.parentNode.parentNode.rowIndex;
-    document.getElementById('myTable').deleteRow(i);
+
+    var i = id.parentNode.parentNode.rowIndex,
+        table = document.getElementById("myTable");
+    if(table.rows.length !=1) {
+        document.getElementById('myTable').deleteRow(i);
+    }
 }
+
 function deleteCell(){
 
     var table = document.getElementById("myTable"),
         count = table.rows.length,
-
         i = 0;
-    console.log(count);
+
     for (i; i < count; i++) {
-        console.log(i);
-        table.rows[i].deleteCell();
+        if (table.rows[i].cells.length != 1) {
+            table.rows[i].deleteCell();
+        }
     }
+}
+
+function showButton(e) {
+
+  var div1 = document.getElementsByClassName('buttonDelRow'),
+       buttonStyleRow = div1[0].style,
+       x = e.clientX,
+       y = e.clientY;
+
+        buttonStyleRow.visibility = "visible";
+        buttonStyleRow.left = x + 'px';
+
+        var div = document.getElementsByClassName('buttonDelCell'),
+            buttonStyleCell = div[0].style;
+        buttonStyleCell.visibility = "visible";
+        buttonStyleCell.top = y + 'px';
 
 }
-function showButton(event) {
 
-    var div1 = document.getElementsByClassName('buttonDelRow'),
-        buttonStyleRow = div1[0].style;
-    buttonStyleRow.visibility = "visible";
-    buttonStyleRow.left = event.clientX + 'px';
+function hideButton(e){
+   // console.log(document.elementFromPoint(e.clientX, e.clientY).tagName);
+    if(document.elementFromPoint(e.clientX, e.clientY).tagName === 'TD' ||
+        document.elementFromPoint(e.clientX, e.clientY).tagName === 'TABLE' ||
+        document.elementFromPoint(e.clientX, e.clientY).tagName === 'BUTTON'){
+           // console.log('im here!');
+    }else {
+        setTimeout(function () {
+            hide(e)
+        }, 1000);
+    }
+}
+
+function hide(e){
+    var div = document.getElementsByClassName('buttonDelRow'),
+        style = div[0].style;
+        style.visibility = "hidden";
 
     var div = document.getElementsByClassName('buttonDelCell'),
-        buttonStyleCell = div[0].style;
-    buttonStyleCell.visibility = "visible";
-    buttonStyleCell.top = event.clientY + 'px';
-}
-function hideButton(e){
-
-    setTimeout(function(){hide(e)}, 1000);
-}
-function hide(e){
-    console.log(e);
-        if ((document.elementFromPoint(e.clientX, e.clientY).tagName) != "button") {
-
-            var div = document.getElementsByClassName('buttonDelRow'),
-                style = div[0].style;
-            style.visibility = "hidden";
-
-            var div = document.getElementsByClassName('buttonDelCell'),
-                style = div[0].style;
-            style.visibility = "hidden";
-        }
+        style = div[0].style;
+        style.visibility = "hidden";
 }
