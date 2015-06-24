@@ -8,26 +8,26 @@
         <script type="text/javascript" src="javascript.js"></script>
     </head>
     <body>
-        <div class="wrapp">
+        <div class="tablePosition">
             <div class="border">
-                <table id="myTable" cellspacing="1" onmouseover="showButton(event)" >
+                <table id="myTable" cellspacing="1" onmouseover="showButton(event)" onmouseout="hideButton(event)">
                     <tr><td></td><td></td><td></td><td></td></tr>
                     <tr><td></td><td></td><td></td><td></td></tr>
                     <tr><td></td><td></td><td></td><td></td></tr>
                     <tr><td></td><td></td><td></td><td></td></tr>
                 </table>
             </div>
-            <div class="button1" id="addrow">
+            <div class="buttonAddRow">
                 <button class="button" onclick="addrow()">+</button>
             </div>
-            <div class="button2" id="addcol">
+            <div class="buttonAddCell">
                 <button class="button" onclick="addcol()">+</button>
             </div>
-            <div class="button3">
+            <div class="buttonDelRow">
                 <button class="button" id="=delrow" onclick="deleteRow(this)">-</button>
             </div>
-            <div class="button4" id="delcell">
-                <button class="button" onclick="deleteCell()">-</button>
+            <div class="buttonDelCell">
+                <button class="button" onclick="deleteCell(this)">-</button>
             </div>
         </div>
     </body>

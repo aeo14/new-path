@@ -38,10 +38,9 @@
 })();
 */
 
-
 function addrow(){
     var table = document.getElementById('myTable'),
-        count = table.getElementsByTagName('tr').length,
+        count = table.rows[0].cells.length,
         y = table.insertRow(),
         i = 0;
 
@@ -51,11 +50,11 @@ function addrow(){
 }
 function addcol(){
     var table = document.getElementById('myTable'),
-        trs = table.getElementsByTagName('tr'),
-        count = trs.length,
+        oRows = table.getElementsByTagName('tr'),
         i = 0;
-    for(i; i < count; i++) {
-        var c = i <= 1 ? 2 : 3, x = trs[i].insertCell(c);
+
+    for(i; i < oRows.length; i++) {
+        oRows[i].insertCell();
     }
 }
 function deleteRow(id){
@@ -63,44 +62,44 @@ function deleteRow(id){
     document.getElementById('myTable').deleteRow(i);
 }
 function deleteCell(){
-    var row = document.getElementById("myTable"),
-        count = document.getElementsByTagName('tr').length,
-        i = 0;
 
+    var table = document.getElementById("myTable"),
+        count = table.rows.length,
+
+        i = 0;
+    console.log(count);
     for (i; i < count; i++) {
-        row.rows[i].deleteCell(i)
+        console.log(i);
+        table.rows[i].deleteCell();
     }
-    /*var row = document.getElementById("myTable").rows[0];
-     row.deleteCell(0);
-     row = document.getElementById("myTable").rows[1];
-     row.deleteCell(1);
-     row = document.getElementById("myTable").rows[2];
-     row.deleteCell(2);
-     row = document.getElementById("myTable").rows[3];
-     row.deleteCell(3);*/
+
 }
 function showButton(event) {
-    //console.log(event.pageX);
-    console.log(document.getElementById('delrow'));
-    var div1 = document.getElementsByClassName('button3'),
-        style1 = div1[0].style;
-//.style = "position:absolute;\n left:160px;\n top:55px;\n"
-    style1.visibility = "visible";
-    style1.height = 100;
 
-    //style1.height = ;
-    //style1.width = ;
+    var div1 = document.getElementsByClassName('buttonDelRow'),
+        buttonStyleRow = div1[0].style;
+    buttonStyleRow.visibility = "visible";
+    buttonStyleRow.left = event.clientX + 'px';
 
-    var div = document.getElementsByClassName('button4'),
-        style = div[0].style;
-    style.visibility = "visible";
+    var div = document.getElementsByClassName('buttonDelCell'),
+        buttonStyleCell = div[0].style;
+    buttonStyleCell.visibility = "visible";
+    buttonStyleCell.top = event.clientY + 'px';
 }
-function hideButton(){
-    var div = document.getElementsByClassName('button3'),
-        style = div[0].style;
-    style.visibility = "hidden";
+function hideButton(e){
 
-    var div = document.getElementsByClassName('button4'),
-        style = div[0].style;
-    style.visibility = "hidden";
+    setTimeout(function(){hide(e)}, 1000);
+}
+function hide(e){
+    console.log(e);
+        if ((document.elementFromPoint(e.clientX, e.clientY).tagName) != "button") {
+
+            var div = document.getElementsByClassName('buttonDelRow'),
+                style = div[0].style;
+            style.visibility = "hidden";
+
+            var div = document.getElementsByClassName('buttonDelCell'),
+                style = div[0].style;
+            style.visibility = "hidden";
+        }
 }
